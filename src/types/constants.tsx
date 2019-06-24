@@ -1,0 +1,1 @@
+export type SET_TEXT_MESSAGE_TYPE = "SET_TEXT_MESSAGE";

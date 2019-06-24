@@ -1,4 +1,3 @@
-// @flow
 export const commonMarginValue = 5;
 export const commonBorderValue = 1;
 export const commonBorderColor = "#e5e5e5";

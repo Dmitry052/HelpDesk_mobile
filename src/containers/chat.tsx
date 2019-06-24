@@ -1,13 +1,9 @@
-// @flow
 import { connect } from "react-redux";
 import Chat from "./../components/Chat";
 import { setTextMessage } from "./../actions/chat";
-import type {
-  MapStateToPropsType,
-  MapDispatchToPropsType
-} from "./../components/Chat/types";
+import { ReducersType } from "./../types/reducers";
 
-const mapStateToProps = ({ chat }: MapStateToPropsType) => ({
+const mapStateToProps = ({ chat }: ReducersType) => ({
   dataChat: chat.dataChat,
   inputMessage: chat.inputMessage
 });

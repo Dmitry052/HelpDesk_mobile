@@ -1,12 +1,11 @@
-// @flow
 import React from "react";
 import { View, Text, TextInput, Image, FlatList } from "react-native";
 import Message from "./Message";
 import { Button } from "react-native-elements";
-import type { PropsChatComponentType, ItemChatDataType } from "./types";
+import { PropsType, ItemChatDataType } from "./types";
 import style from "./style";
 
-class Chat extends React.Component<PropsChatComponentType> {
+class Chat extends React.Component<PropsType> {
   handleSetMessage = (value: string) => {
     const { setTextMessage } = this.props;
 
@@ -15,7 +14,7 @@ class Chat extends React.Component<PropsChatComponentType> {
 
   // Custom key for FlatList
   keyExtractor = (item: ItemChatDataType) => `id${item.id}`;
-
+// FIXME: fix type
   handleRenderItem = ({ item }: any) => <Message item={item} />;
 
   render() {

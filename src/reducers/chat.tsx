@@ -1,5 +1,5 @@
 import { SET_TEXT_MESSAGE } from "./../constants/chat";
-import type { InitialStateType } from "./../components/Chat/types";
+import { InitialStateType } from "./../components/Chat/types";
 
 const initialState: InitialStateType = {
   inputMessage: "",
@@ -13,25 +13,25 @@ const initialState: InitialStateType = {
     {
       id: 2,
       type: "output",
-      timestamp: new Date(new Date() - 100000000),
+      timestamp: new Date(),
       message: "input message text 3"
     },
     {
       id: 3,
       type: "input",
-      timestamp: new Date(new Date() - 200000000),
+      timestamp: new Date(),
       message: "output message text 2"
     },
     {
       id: 4,
       type: "output",
-      timestamp: new Date(new Date() - 300000000),
+      timestamp: new Date(),
       message: "input message text 1"
     }
   ]
 };
 
-export default function user(state = initialState, action) {
+export default function user(state = initialState, action: any) {
   switch (action.type) {
     case SET_TEXT_MESSAGE: {
       return { ...state, inputMessage: action.data };

@@ -6,16 +6,19 @@ export default StyleSheet.create({
     flex: 1
   },
   messages: {
-    flex: 10,
+    flex: 1,
     ...commonMargin
   },
   // *****************************
   inputBlock: {
-    flex: 1,
+    height: 50,
+    alignItems: "flex-end",
     flexDirection: "row",
     alignItems: "stretch",
     borderTopWidth: 1,
-    borderColor: commonBorderColor
+    borderColor: commonBorderColor,
+    paddingVertical: 5,
+    paddingHorizontal: 5
   },
   inputMessage: { flexBasis: "80%", paddingLeft: 5 },
   btnContainer: {
@@ -23,11 +26,5 @@ export default StyleSheet.create({
     margin: 0,
     padding: 0
   },
-  btn: {
-    height: "100%",
-    borderTopLeftRadius: 0,
-    borderBottomLeftRadius: 0,
-    borderTopRightRadius: 0,
-    borderBottomRightRadius: 0
-  }
+  btn: {}
 });
