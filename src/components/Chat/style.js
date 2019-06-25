@@ -42,5 +42,17 @@ export default StyleSheet.create({
     alignItems: "flex-end",
     paddingHorizontal: 5
   },
-  btn: { borderRadius: 20, width: 40 }
+  btn: { borderRadius: 20, width: 40 },
+  previewImgContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    backgroundColor: "#282a30"
+  },
+  previewImg: {
+    width: 50,
+    height: 50,
+    marginHorizontal: 5,
+    flexWrap: "wrap"
+  }
 });

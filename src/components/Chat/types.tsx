@@ -11,12 +11,14 @@ export interface MessagePropsType {
 
 export interface InitialStateType {
   inputMessage: string;
+  userPhoto: Array<string>;
   dataChat: Array<ItemChatDataType>;
 }
 
 export interface MapDispatchToPropsType {
   setTextMessage: (value: string) => any;
   sendMessage: (value: string) => any;
+  setChosenPhoto: (value: string) => any;
 }
 
 export type PropsType = InitialStateType & MapDispatchToPropsType;

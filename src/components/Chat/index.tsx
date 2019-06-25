@@ -1,6 +1,7 @@
 import React from "react";
 import {
   View,
+  Image,
   FlatList,
   TextInput,
   SafeAreaView,
@@ -9,6 +10,7 @@ import {
   TouchableWithoutFeedback
 } from "react-native";
 import { Icon } from "react-native-elements";
+import ImagePicker from "react-native-image-picker";
 
 import Message from "./Message";
 import { PropsType, ItemChatDataType } from "./types";
@@ -37,9 +39,38 @@ class Chat extends React.Component<PropsType> {
     sendMessage(inputMessage);
   };
 
-  render() {
-    const { dataChat, inputMessage } = this.props;
+  setPhoto = () => {
+    const { setChosenPhoto } = this.props;
 
+    const options = {
+      title: "Select photo",
+      customButtons: [],
+      storageOptions: {
+        skipBackup: true,
+        path: "images"
+      }
+    };
+
+    ImagePicker.showImagePicker(options, response => {
+      console.log("Response = ", response);
+
+      if (response.didCancel) {
+        console.log("User cancelled image picker");
+      } else if (response.error) {
+        console.log("ImagePicker Error: ", response.error);
+      } else if (response.customButton) {
+        console.log("User tapped custom button: ", response.customButton);
+      } else {
+        const source = `data:image/jpeg;base64,${response.data}`;
+
+        setChosenPhoto(source);
+      }
+    });
+  };
+
+  render() {
+    const { dataChat, inputMessage, userPhoto } = this.props;
+    console.log(this.props);
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
         <ImageBackground source={backgroundImg} style={style.main}>
@@ -56,7 +87,7 @@ class Chat extends React.Component<PropsType> {
           </View>
 
           <View style={style.inputBlock}>
-            <TouchableWithoutFeedback onPress={() => {}}>
+            <TouchableWithoutFeedback onPress={this.setPhoto}>
               <View style={style.clipContainer}>
                 <Icon
                   name="paperclip"
@@ -86,6 +117,12 @@ class Chat extends React.Component<PropsType> {
                 />
               </View>
             </TouchableWithoutFeedback>
+          </View>
+
+          <View style={style.previewImgContainer}>
+            {userPhoto.map(item => (
+              <Image source={{ uri: item }} style={style.previewImg} />
+            ))}
           </View>
         </ImageBackground>
       </SafeAreaView>
