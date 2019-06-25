@@ -1,9 +1,20 @@
 import React from "react";
-import { View, Text, TextInput, Image, FlatList } from "react-native";
+import {
+  View,
+  FlatList,
+  TextInput,
+  SafeAreaView,
+  ImageBackground,
+  ListRenderItemInfo,
+  TouchableWithoutFeedback
+} from "react-native";
+import { Icon } from "react-native-elements";
+
 import Message from "./Message";
-import { Button } from "react-native-elements";
 import { PropsType, ItemChatDataType } from "./types";
 import style from "./style";
+
+const backgroundImg = require("./../../../img/background_chat.jpg");
 
 class Chat extends React.Component<PropsType> {
   handleSetMessage = (value: string) => {
@@ -14,44 +25,70 @@ class Chat extends React.Component<PropsType> {
 
   // Custom key for FlatList
   keyExtractor = (item: ItemChatDataType) => `id${item.id}`;
-// FIXME: fix type
-  handleRenderItem = ({ item }: any) => <Message item={item} />;
+
+  // Render message buble
+  handleRenderItem = ({ item }: ListRenderItemInfo<ItemChatDataType>) => (
+    <Message item={item} />
+  );
+
+  sendMessage = () => {
+    const { inputMessage, sendMessage } = this.props;
+
+    sendMessage(inputMessage);
+  };
 
   render() {
     const { dataChat, inputMessage } = this.props;
 
     return (
-      <View style={style.main}>
-        <View style={style.messages}>
-          <FlatList
-            inverted
-            data={dataChat}
-            keyExtractor={this.keyExtractor}
-            onScrollEndDrag={() => console.log("end")}
-            onScrollBeginDrag={() => console.log("start")}
-            onScroll={() => console.log("end")}
-            renderItem={this.handleRenderItem}
-          />
-        </View>
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+        <ImageBackground source={backgroundImg} style={style.main}>
+          <View style={style.messages}>
+            <FlatList
+              inverted
+              data={dataChat}
+              keyExtractor={this.keyExtractor}
+              onScrollEndDrag={() => console.log("end onScrollEndDrag")}
+              onScrollBeginDrag={() => console.log("start onScrollBeginDrag")}
+              onScroll={() => console.log("end onScroll")}
+              renderItem={this.handleRenderItem}
+            />
+          </View>
 
-        <View style={style.inputBlock}>
-          <TextInput
-            multiline
-            style={style.inputMessage}
-            placeholder="input your message"
-            onChangeText={this.handleSetMessage}
-            value={inputMessage}
-          />
+          <View style={style.inputBlock}>
+            <TouchableWithoutFeedback onPress={() => {}}>
+              <View style={style.clipContainer}>
+                <Icon
+                  name="paperclip"
+                  type="font-awesome"
+                  color="#b0c4d5"
+                  size={30}
+                />
+              </View>
+            </TouchableWithoutFeedback>
 
-          <Button
-            title=""
-            buttonStyle={style.btn}
-            containerStyle={style.btnContainer}
-            icon={{ name: "paper-plane", type: "font-awesome" }}
-            onPress={() => {}}
-          />
-        </View>
-      </View>
+            <TextInput
+              multiline
+              style={style.inputMessage}
+              placeholder="message"
+              placeholderTextColor="#b0c4d5"
+              onChangeText={this.handleSetMessage}
+              value={inputMessage}
+            />
+
+            <TouchableWithoutFeedback onPress={this.sendMessage}>
+              <View style={style.sendContainer}>
+                <Icon
+                  name="arrow-circle-up"
+                  type="font-awesome"
+                  color="#b0c4d5"
+                  size={30}
+                />
+              </View>
+            </TouchableWithoutFeedback>
+          </View>
+        </ImageBackground>
+      </SafeAreaView>
     );
   }
 }

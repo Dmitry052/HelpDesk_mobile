@@ -53,6 +53,10 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Photo Library Access Warning</string>
+	<key>NSCameraUsageDescription</key>
+	<string>My description about why I need this capability</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>

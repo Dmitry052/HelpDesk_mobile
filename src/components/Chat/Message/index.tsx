@@ -1,50 +1,49 @@
 import React from "react";
 import { View, Text } from "react-native";
+import { MessagePropsType } from "./../types";
 import style from "./style";
 
-// FIXME: fix type
-const Message = ({ item }: any) => (
-  <View
-    style={
-      item.type === "input"
-        ? {
-            ...style.containerChatText,
-            ...style.rightText
-          }
-        : style.containerChatText
-    }
-  >
+const Message = ({ item }: MessagePropsType) => {
+  return (
     <View
       style={
         item.type === "input"
-          ? { ...style.locationChatText, ...style.rightColor }
-          : style.locationChatText
+          ? {
+              ...style.containerChatText,
+              ...style.rightText
+            }
+          : style.containerChatText
       }
     >
-      <Text
-        style={
-          item.type === "input"
-            ? { ...style.chattext, ...style.rightChattext }
-            : style.chattext
-        }
-      >{`${item.message}`}</Text>
-
-      {/* Time */}
       <View
         style={
-          item.type === "input" ? style.messageTimeLeft : style.messageTimeRight
+          item.type === "input"
+            ? { ...style.locationChatText, ...style.rightColor }
+            : style.locationChatText
         }
       >
-        <Text
+        <Text style={style.chattext}>{`${item.message}`}</Text>
+
+        {/* Time */}
+        <View
           style={
             item.type === "input"
-              ? style.messageTimeTextLeft
-              : style.messageTimeTextRight
+              ? style.messageTimeLeft
+              : style.messageTimeRight
           }
-        >{`${item.timestamp.toLocaleString("en-EN")}`}</Text>
+        >
+          <Text
+            style={
+              item.type === "input"
+                ? style.messageTimeTextLeft
+                : style.messageTimeTextRight
+            }
+            // TODO:
+          >{`${item.timestamp.toLocaleString("en-EN")}`}</Text>
+        </View>
       </View>
     </View>
-  </View>
-);
+  );
+};
 
 export default Message;

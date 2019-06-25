@@ -11,20 +11,36 @@ export default StyleSheet.create({
   },
   // *****************************
   inputBlock: {
-    height: 50,
+    minHeight: 50,
+    maxHeight: 100,
     alignItems: "flex-end",
     flexDirection: "row",
     alignItems: "stretch",
+    backgroundColor: "#282a30",
     borderTopWidth: 1,
     borderColor: commonBorderColor,
     paddingVertical: 5,
     paddingHorizontal: 5
   },
-  inputMessage: { flexBasis: "80%", paddingLeft: 5 },
-  btnContainer: {
-    flexBasis: "20%",
-    margin: 0,
-    padding: 0
+  inputMessage: {
+    width: "80%",
+    alignSelf: "center",
+    backgroundColor: "#e6e6e6",
+    borderRadius: 15,
+    marginHorizontal: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 5
   },
-  btn: {}
+  clipContainer: {
+    justifyContent: "center",
+    alignItems: "flex-start",
+    paddingHorizontal: 5
+  },
+  sendContainer: {
+    flexBasis: "auto",
+    justifyContent: "center",
+    alignItems: "flex-end",
+    paddingHorizontal: 5
+  },
+  btn: { borderRadius: 20, width: 40 }
 });

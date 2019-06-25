@@ -16,16 +16,11 @@ export default StyleSheet.create({
     alignItems: "flex-end"
   },
   rightColor: {
-    backgroundColor: "#00a3dc"
+    backgroundColor: "#416e9c"
   },
   locationChatText: {
-    borderBottomWidth: 1,
-    borderTopWidth: 1,
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderColor: "#d2d0d0",
     borderRadius: 9,
-    backgroundColor: "#fafafa",
+    backgroundColor: "#20303f",
     maxWidth: "80%"
   },
   messageTimeLeft: {
@@ -37,6 +32,7 @@ export default StyleSheet.create({
     justifyContent: "flex-start"
   },
   messageTimeTextRight: {
+    color: "#fff",
     fontSize: 10
   },
   messageTimeTextLeft: {
@@ -44,9 +40,7 @@ export default StyleSheet.create({
     color: "#fff"
   },
   chattext: {
+    color: "#fff",
     ...commonMargin
-  },
-  rightChattext: {
-    color: "#fff"
   }
 });

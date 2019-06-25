@@ -5,6 +5,10 @@ export interface ItemChatDataType {
   message: string;
 }
 
+export interface MessagePropsType {
+  item: ItemChatDataType;
+}
+
 export interface InitialStateType {
   inputMessage: string;
   dataChat: Array<ItemChatDataType>;
@@ -12,6 +16,7 @@ export interface InitialStateType {
 
 export interface MapDispatchToPropsType {
   setTextMessage: (value: string) => any;
+  sendMessage: (value: string) => any;
 }
 
 export type PropsType = InitialStateType & MapDispatchToPropsType;

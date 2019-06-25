@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import Chat from "./../components/Chat";
-import { setTextMessage } from "./../actions/chat";
+import { setTextMessage, sendMessage } from "./../actions/chat";
 import { ReducersType } from "./../types/reducers";
 
 const mapStateToProps = ({ chat }: ReducersType) => ({
@@ -10,5 +10,5 @@ const mapStateToProps = ({ chat }: ReducersType) => ({
 
 export default connect(
   mapStateToProps,
-  { setTextMessage }
+  { setTextMessage, sendMessage }
 )(Chat);
