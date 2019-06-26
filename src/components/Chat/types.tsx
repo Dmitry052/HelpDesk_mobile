@@ -9,16 +9,23 @@ export interface MessagePropsType {
   item: ItemChatDataType;
 }
 
-export interface InitialStateType {
+export interface InitialStateChatType {
   inputMessage: string;
   userPhoto: Array<string>;
   dataChat: Array<ItemChatDataType>;
 }
 
-export interface MapDispatchToPropsType {
-  setTextMessage: (value: string) => any;
-  sendMessage: (value: string) => any;
-  setChosenPhoto: (value: string) => any;
+export interface InitialStateAuthType {
+  userToken: string;
 }
 
-export type PropsType = InitialStateType & MapDispatchToPropsType;
+export interface MapDispatchToPropsType {
+  setTextMessage: (value: string) => any;
+  sendMessage: (value: Array<ItemChatDataType>) => any;
+  setChosenPhoto: (value: string) => any;
+  setUserToken: (value: string) => any;
+}
+
+export type PropsType = InitialStateChatType &
+  MapDispatchToPropsType &
+  InitialStateAuthType;

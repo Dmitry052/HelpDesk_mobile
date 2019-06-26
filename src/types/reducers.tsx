@@ -1,5 +1,9 @@
-import { InitialStateType } from "./../components/Chat/types";
+import {
+  InitialStateChatType,
+  InitialStateAuthType
+} from "./../components/Chat/types";
 
 export interface ReducersType {
-  chat: InitialStateType;
+  chat: InitialStateChatType;
+  auth: InitialStateAuthType;
 }

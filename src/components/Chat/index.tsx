@@ -11,14 +11,42 @@ import {
 } from "react-native";
 import { Icon } from "react-native-elements";
 import ImagePicker from "react-native-image-picker";
-
+import { sendMessageToFRrAPI } from "./../../actions/chat";
 import Message from "./Message";
+import { getFbListeners } from "./../../network/fbMessaging";
 import { PropsType, ItemChatDataType } from "./types";
 import style from "./style";
 
 const backgroundImg = require("./../../../img/background_chat.jpg");
 
 class Chat extends React.Component<PropsType> {
+  state = {
+    onTokenRefreshListener: () => {},
+    messageListener: () => {}
+  };
+
+  async componentDidMount() {
+    const { setUserToken, userToken, sendMessage } = this.props;
+    const listeners = await getFbListeners(
+      setUserToken,
+      userToken,
+      sendMessage
+    );
+
+    if (listeners) {
+      const { onTokenRefreshListener, messageListener } = listeners;
+      this.setState({
+        onTokenRefreshListener,
+        messageListener
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    this.state.onTokenRefreshListener();
+    this.state.messageListener();
+  }
+
   handleSetMessage = (value: string) => {
     const { setTextMessage } = this.props;
 
@@ -34,9 +62,9 @@ class Chat extends React.Component<PropsType> {
   );
 
   sendMessage = () => {
-    const { inputMessage, sendMessage } = this.props;
+    const { inputMessage } = this.props;
 
-    sendMessage(inputMessage);
+    sendMessageToFRrAPI(inputMessage);
   };
 
   setPhoto = () => {
@@ -70,7 +98,7 @@ class Chat extends React.Component<PropsType> {
 
   render() {
     const { dataChat, inputMessage, userPhoto } = this.props;
-    console.log(this.props);
+
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
         <ImageBackground source={backgroundImg} style={style.main}>

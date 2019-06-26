@@ -1,4 +1,7 @@
+// Auth
+export const SET_USER_TOKEN = "SET_USER_TOKEN";
 // Chat
 export const SET_TEXT_MESSAGE = "SET_TEXT_MESSAGE";
 export const SET_CHOSEN_PHOTO = "SET_CHOSEN_PHOTO";
 export const DELETE_CHOSEN_PHOTO = "DELETE_CHOSEN_PHOTO";
+export const SET_CHAT_MESSAGES = "SET_CHAT_MESSAGES";
