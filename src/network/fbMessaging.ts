@@ -2,18 +2,18 @@ import firebase from "react-native-firebase";
 import { registerUserToken } from "./../actions/auth";
 import { ItemChatDataType } from "./../components/Chat/types";
 
-type CB = (value: string) => void;
+type CB = (token: string) => void;
 type CBsendMessage = (value: Array<ItemChatDataType>) => void;
 
 export const getFbListeners = async (
   cbToken: CB,
   userToken: string,
-  sendMessage: CBsendMessage
+  sendMessage: CBsendMessage,
+  userId: string
 ) => {
   const enabled = await firebase.messaging().hasPermission();
 
   if (enabled) {
-    const uuidv4 = require("uuid/v4");
     const fcmToken = await firebase.messaging().getToken();
     const onTokenRefreshListener = firebase
       .messaging()
@@ -21,12 +21,12 @@ export const getFbListeners = async (
         // Process your token as required
         cbToken(fcmToken);
 
-        registerUserToken(uuidv4(), fcmToken);
+        registerUserToken(userId, fcmToken);
       });
 
     if (!userToken) {
       cbToken(fcmToken);
-      registerUserToken(uuidv4(), fcmToken);
+      registerUserToken(userId, fcmToken);
     }
 
     const messageListener = firebase.messaging().onMessage((message: any) => {

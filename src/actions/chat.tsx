@@ -30,12 +30,13 @@ export const sendMessage = (data: Array<ItemChatDataType>) => (
   dispatch({ type: DELETE_CHOSEN_PHOTO });
 };
 
-export const sendMessageToFRrAPI = (value: string) => {
+export const sendMessageToFRrAPI = (value: string, userId: string) => {
   axios({
     method: "post",
-    url: `${config.serverUrl}/frmobile`,
+    url: `${config.serverUrl}/chat/frmobile`,
     data: {
-      textMessage: value
+      userId,
+      message: value
     }
   })
     .then(response => console.log("** Register Token **", response.data))

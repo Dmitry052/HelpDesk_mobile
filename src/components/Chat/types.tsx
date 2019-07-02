@@ -17,13 +17,15 @@ export interface InitialStateChatType {
 
 export interface InitialStateAuthType {
   userToken: string;
+  userId: string;
 }
 
 export interface MapDispatchToPropsType {
   setTextMessage: (value: string) => any;
   sendMessage: (value: Array<ItemChatDataType>) => any;
   setChosenPhoto: (value: string) => any;
-  setUserToken: (value: string) => any;
+  setUserToken: (token: string) => any;
+  setLocalUserId: (userId: string) => any;
 }
 
 export type PropsType = InitialStateChatType &

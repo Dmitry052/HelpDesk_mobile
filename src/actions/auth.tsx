@@ -1,16 +1,20 @@
 import { Action, Dispatch } from "redux";
 import axios from "axios";
-import { SET_USER_TOKEN } from "./../constants/chat";
+import { SET_USER_TOKEN, SET_USER_ID } from "./../constants/chat";
 import config from "./../../config";
 
-export const setUserToken = (value: string) => (dispatch: Dispatch<Action>) => {
-  dispatch({ type: SET_USER_TOKEN, data: value });
+export const setUserToken = (token: string) => (dispatch: Dispatch<Action>) => {
+  dispatch({ type: SET_USER_TOKEN, data: token });
+};
+
+export const setLocalUserId = (userId: string) => (dispatch: Dispatch<Action>) => {
+  dispatch({ type: SET_USER_ID, data: userId });
 };
 
 export const registerUserToken = (userId: string, userToken: string) => {
   axios({
     method: "post",
-    url: `${config.serverUrl}/register`,
+    url: `${config.serverUrl}/auth/register`,
     data: {
       userId,
       userToken

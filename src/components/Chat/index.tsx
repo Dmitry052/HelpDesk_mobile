@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { Icon } from "react-native-elements";
 import ImagePicker from "react-native-image-picker";
+import { setUserId, getUserId } from "./../../managers/AuthManager";
 import { sendMessageToFRrAPI } from "./../../actions/chat";
 import Message from "./Message";
 import { getFbListeners } from "./../../network/fbMessaging";
@@ -18,19 +19,29 @@ import { PropsType, ItemChatDataType } from "./types";
 import style from "./style";
 
 const backgroundImg = require("./../../../img/background_chat.jpg");
+const uuidv4 = require("uuid/v4");
 
 class Chat extends React.Component<PropsType> {
+  static navigationOptions = {
+    headerTransparent: true,
+    headerStyle: {
+      backgroundColor: "transparent"
+    }
+  };
+
   state = {
     onTokenRefreshListener: () => {},
     messageListener: () => {}
   };
 
   async componentDidMount() {
-    const { setUserToken, userToken, sendMessage } = this.props;
+    const userId = await this.getUserId();
+    const { setUserToken, setLocalUserId, userToken, sendMessage } = this.props;
     const listeners = await getFbListeners(
       setUserToken,
       userToken,
-      sendMessage
+      sendMessage,
+      userId
     );
 
     if (listeners) {
@@ -40,12 +51,25 @@ class Chat extends React.Component<PropsType> {
         messageListener
       });
     }
+
+    setLocalUserId(userId);
   }
 
   componentWillUnmount() {
     this.state.onTokenRefreshListener();
     this.state.messageListener();
   }
+
+  // TODO: Create registration screen
+  getUserId = async () => {
+    let userId: string = (await getUserId()) || "";
+    if (!userId) {
+      userId = uuidv4();
+      setUserId(userId);
+    }
+
+    return userId;
+  };
 
   handleSetMessage = (value: string) => {
     const { setTextMessage } = this.props;
@@ -62,9 +86,9 @@ class Chat extends React.Component<PropsType> {
   );
 
   sendMessage = () => {
-    const { inputMessage } = this.props;
-
-    sendMessageToFRrAPI(inputMessage);
+    const { inputMessage, userId } = this.props;
+    
+    sendMessageToFRrAPI(inputMessage, userId);
   };
 
   setPhoto = () => {
@@ -100,7 +124,7 @@ class Chat extends React.Component<PropsType> {
     const { dataChat, inputMessage, userPhoto } = this.props;
 
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+      <SafeAreaView style={{ flex: 1 }}>
         <ImageBackground source={backgroundImg} style={style.main}>
           <View style={style.messages}>
             <FlatList

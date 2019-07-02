@@ -3,17 +3,25 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-import Chat from "./src/containers/chat";
-import reducers from "./src/reducers";
+import { createStackNavigator, createAppContainer } from "react-navigation";
+import Screens from "./screens";
+import reducers from "./reducers";
 
 const store = createStore(
   reducers,
   composeWithDevTools(applyMiddleware(thunk))
 );
 
+const AppNavigator = createStackNavigator(Screens, {
+  // TODO: Create manager
+  initialRouteName: "Chat"
+});
+
+const Navigation = createAppContainer(AppNavigator);
+
 const Wraper = () => (
   <Provider store={store}>
-    <Chat />
+    <Navigation />
   </Provider>
 );
 
