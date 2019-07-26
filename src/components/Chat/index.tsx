@@ -78,7 +78,7 @@ class Chat extends React.Component<PropsType> {
   };
 
   // Custom key for FlatList
-  keyExtractor = (item: ItemChatDataType) => `id${item.id}`;
+  keyExtractor = (item: ItemChatDataType) => `id-${item._id || item.id}`;
 
   // Render message buble
   handleRenderItem = ({ item }: ListRenderItemInfo<ItemChatDataType>) => (

@@ -1,7 +1,8 @@
 export interface ItemChatDataType {
+  _id: number;
   id: number;
   type: string;
-  timestamp: Date;
+  date: Date;
   message: string;
 }
 

@@ -7,7 +7,9 @@ export const setUserToken = (token: string) => (dispatch: Dispatch<Action>) => {
   dispatch({ type: SET_USER_TOKEN, data: token });
 };
 
-export const setLocalUserId = (userId: string) => (dispatch: Dispatch<Action>) => {
+export const setLocalUserId = (userId: string) => (
+  dispatch: Dispatch<Action>
+) => {
   dispatch({ type: SET_USER_ID, data: userId });
 };
 
@@ -20,7 +22,9 @@ export const registerUserToken = (userId: string, userToken: string) => {
       userToken
     }
   })
-    .then(response => console.log("** Register Token **", response.data))
+    .then(response => {
+      console.log("** Register Token **", response.data);
+    })
     .catch(err => {
       console.log("** Register Token ERROR **", err);
     });

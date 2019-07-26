@@ -39,7 +39,7 @@ const Message = ({ item }: MessagePropsType) => {
                 : style.messageTimeTextRight
             }
             // TODO:
-          >{`${new Date(item.timestamp).toLocaleString("en-EN")}`}</Text>
+          >{`${new Date(item.date).toLocaleString("en-EN")}`}</Text>
         </View>
       </View>
     </View>
