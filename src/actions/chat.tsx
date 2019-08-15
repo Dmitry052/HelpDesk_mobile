@@ -44,7 +44,7 @@ export const sendMessageToFRrAPI = (value: string, userId: string) => {
 
   axios({
     method: "post",
-    url: `${config.serverUrl}/chat/sendMessage`,
+    url: `${config.socketServerUrl}/chat/sendMessage`,
     data
   })
     .then(response => console.log("** sendMessageToFRrAPI **", response.data))
