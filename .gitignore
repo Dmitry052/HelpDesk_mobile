@@ -62,3 +62,4 @@ buck-out/
 *.jsbundle
 
 android/app/google-services.json
+ios/mobile/GoogleService-Info.plist
