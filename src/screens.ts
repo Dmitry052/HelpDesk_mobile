@@ -1,5 +1,5 @@
-import Chat from "./containers/chat";
+import Chat from './containers/chat';
 
 export default {
-  Chat
+  Chat,
 };

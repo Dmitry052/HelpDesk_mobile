@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   View,
   Image,
@@ -7,31 +7,31 @@ import {
   SafeAreaView,
   ImageBackground,
   ListRenderItemInfo,
-  TouchableWithoutFeedback
-} from "react-native";
-import { Icon } from "react-native-elements";
-import ImagePicker from "react-native-image-picker";
-import { setUserId, getUserId } from "./../../managers/AuthManager";
-import { sendMessageToFRrAPI } from "./../../actions/chat";
-import Message from "./Message";
-import { getFbListeners } from "./../../network/fbMessaging";
-import { PropsType, ItemChatDataType } from "./types";
-import style from "./style";
+  TouchableWithoutFeedback,
+} from 'react-native';
+import { Icon } from 'react-native-elements';
+import ImagePicker from 'react-native-image-picker';
+import { setUserId, getUserId } from './../../managers/AuthManager';
+import { sendMessageToFRrAPI } from './../../actions/chat';
+import Message from './Message';
+import { getFbListeners } from './../../network/fbMessaging';
+import { PropsType, ItemChatDataType } from './types';
+import style from './style';
 
-const backgroundImg = require("./../../../img/background_chat.jpg");
-const uuidv4 = require("uuid/v4");
+const backgroundImg = require('./../../../img/background_chat.jpg');
+const uuidv4 = require('uuid/v4');
 
 class Chat extends React.Component<PropsType> {
   static navigationOptions = {
     headerTransparent: true,
     headerStyle: {
-      backgroundColor: "transparent"
-    }
+      backgroundColor: 'transparent',
+    },
   };
 
   state = {
     onTokenRefreshListener: () => {},
-    messageListener: () => {}
+    messageListener: () => {},
   };
 
   async componentDidMount() {
@@ -41,14 +41,14 @@ class Chat extends React.Component<PropsType> {
       setUserToken,
       userToken,
       sendMessage,
-      userId
+      userId,
     );
 
     if (listeners) {
       const { onTokenRefreshListener, messageListener } = listeners;
       this.setState({
         onTokenRefreshListener,
-        messageListener
+        messageListener,
       });
     }
 
@@ -62,7 +62,7 @@ class Chat extends React.Component<PropsType> {
 
   // TODO: Create registration screen
   getUserId = async () => {
-    let userId: string = (await getUserId()) || "";
+    let userId: string = (await getUserId()) || '';
     if (!userId) {
       userId = uuidv4();
       setUserId(userId);
@@ -87,7 +87,7 @@ class Chat extends React.Component<PropsType> {
 
   sendMessage = () => {
     const { inputMessage, userId } = this.props;
-    
+
     sendMessageToFRrAPI(inputMessage, userId);
   };
 
@@ -95,23 +95,23 @@ class Chat extends React.Component<PropsType> {
     const { setChosenPhoto } = this.props;
 
     const options = {
-      title: "Select photo",
+      title: 'Select photo',
       customButtons: [],
       storageOptions: {
         skipBackup: true,
-        path: "images"
-      }
+        path: 'images',
+      },
     };
 
     ImagePicker.showImagePicker(options, response => {
-      console.log("Response = ", response);
+      console.log('Response = ', response);
 
       if (response.didCancel) {
-        console.log("User cancelled image picker");
+        console.log('User cancelled image picker');
       } else if (response.error) {
-        console.log("ImagePicker Error: ", response.error);
+        console.log('ImagePicker Error: ', response.error);
       } else if (response.customButton) {
-        console.log("User tapped custom button: ", response.customButton);
+        console.log('User tapped custom button: ', response.customButton);
       } else {
         const source = `data:image/jpeg;base64,${response.data}`;
 
@@ -131,9 +131,9 @@ class Chat extends React.Component<PropsType> {
               inverted
               data={dataChat}
               keyExtractor={this.keyExtractor}
-              onScrollEndDrag={() => console.log("end onScrollEndDrag")}
-              onScrollBeginDrag={() => console.log("start onScrollBeginDrag")}
-              onScroll={() => console.log("end onScroll")}
+              onScrollEndDrag={() => console.log('end onScrollEndDrag')}
+              onScrollBeginDrag={() => console.log('start onScrollBeginDrag')}
+              onScroll={() => console.log('end onScroll')}
               renderItem={this.handleRenderItem}
             />
           </View>

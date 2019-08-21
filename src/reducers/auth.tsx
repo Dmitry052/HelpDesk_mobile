@@ -1,8 +1,8 @@
-import { SET_USER_TOKEN, SET_USER_ID } from "./../constants/chat";
+import { SET_USER_TOKEN, SET_USER_ID } from './../constants/chat';
 
 const initialState = {
-  userId: "",
-  userToken: ""
+  userId: '',
+  userToken: '',
 };
 
 export default function user(state = initialState, action: any) {
@@ -10,13 +10,13 @@ export default function user(state = initialState, action: any) {
     case SET_USER_TOKEN: {
       return {
         ...state,
-        userToken: action.data
+        userToken: action.data,
       };
     }
     case SET_USER_ID: {
       return {
         ...state,
-        userId: action.data
+        userId: action.data,
       };
     }
     default:

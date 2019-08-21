@@ -1,6 +1,6 @@
-import firebase from "react-native-firebase";
-import { registerUserToken } from "./../actions/auth";
-import { ItemChatDataType } from "./../components/Chat/types";
+import firebase from 'react-native-firebase';
+import { registerUserToken } from './../actions/auth';
+import { ItemChatDataType } from './../components/Chat/types';
 
 type CB = (token: string) => void;
 type CBsendMessage = (value: Array<ItemChatDataType>) => void;
@@ -9,7 +9,7 @@ export const getFbListeners = async (
   cbToken: CB,
   userToken: string,
   sendMessage: CBsendMessage,
-  userId: string
+  userId: string,
 ) => {
   const enabled = await firebase.messaging().hasPermission();
 
@@ -36,13 +36,13 @@ export const getFbListeners = async (
 
     return { onTokenRefreshListener, messageListener };
   } else {
-    console.log("** Permission provided **");
+    console.log('** Permission provided **');
 
     try {
       await firebase.messaging().requestPermission();
-      console.log(" ** User has authorised  ** ");
+      console.log(' ** User has authorised  ** ');
     } catch (error) {
-      console.log(" ** Provide permission error  ** ");
+      console.log(' ** Provide permission error  ** ');
     }
   }
 };

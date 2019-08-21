@@ -2,14 +2,14 @@ import {
   SET_TEXT_MESSAGE,
   SET_CHOSEN_PHOTO,
   SET_CHAT_MESSAGES,
-  DELETE_CHOSEN_PHOTO
-} from "./../constants/chat";
-import { InitialStateChatType } from "./../components/Chat/types";
+  DELETE_CHOSEN_PHOTO,
+} from './../constants/chat';
+import { InitialStateChatType } from './../components/Chat/types';
 
 const initialState: InitialStateChatType = {
-  inputMessage: "",
+  inputMessage: '',
   userPhoto: [],
-  dataChat: []
+  dataChat: [],
 };
 
 export default function user(state = initialState, action: any) {
