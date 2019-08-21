@@ -1,3 +1,14 @@
+## This is prototype mobile helpdesk chat
+
+### Realized functional
+- Authorization from firebase server(when app opened)
+- Correspondence with the administrator
+- Image insertion from gallery(but not sending)
+
+### In development
+- Sending images and documents
+- Reorganization of the mechanism for receiving messages
+
 ### For android
 `````
 - yarn install
