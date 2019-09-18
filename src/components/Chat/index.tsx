@@ -1,25 +1,20 @@
 import React from 'react';
 import {
   View,
-  Image,
   FlatList,
-  TextInput,
   SafeAreaView,
   ImageBackground,
   ListRenderItemInfo,
-  TouchableWithoutFeedback,
 } from 'react-native';
-import { Icon } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
+import uuidv4 from 'uuid/v4';
 import { setUserId, getUserId } from './../../managers/AuthManager';
 import { sendMessageToFRrAPI } from './../../actions/chat';
 import Message from './Message';
+import InputData from './InputData';
 import { getFbListeners } from './../../network/fbMessaging';
 import { PropsType, ItemChatDataType } from './types';
-import style from './style';
-
-const backgroundImg = require('./../../../img/background_chat.jpg');
-const uuidv4 = require('uuid/v4');
+import style, { backgroundImg } from './style';
 
 class Chat extends React.Component<PropsType> {
   static navigationOptions = {
@@ -56,14 +51,17 @@ class Chat extends React.Component<PropsType> {
   }
 
   componentWillUnmount() {
+    // Turn off listeners
     this.state.onTokenRefreshListener();
     this.state.messageListener();
   }
 
-  // TODO: Create registration screen
+  // Get user id and set to storage
   getUserId = async () => {
     let userId: string = (await getUserId()) || '';
+ 
     if (!userId) {
+      // *** For local tests use uuidv4 ***
       userId = uuidv4();
       setUserId(userId);
     }
@@ -71,9 +69,9 @@ class Chat extends React.Component<PropsType> {
     return userId;
   };
 
+  // Listen change input
   handleSetMessage = (value: string) => {
     const { setTextMessage } = this.props;
-
     setTextMessage(value);
   };
 
@@ -85,15 +83,17 @@ class Chat extends React.Component<PropsType> {
     <Message item={item} />
   );
 
+  // Send message to FB server
+  // If the request is successful the server will be send message and call messageListener
+  // else input field will not be cleared
   sendMessage = () => {
     const { inputMessage, userId } = this.props;
-
     sendMessageToFRrAPI(inputMessage, userId);
   };
 
+  // Get image from library or create new photo
   setPhoto = () => {
     const { setChosenPhoto } = this.props;
-
     const options = {
       title: 'Select photo',
       customButtons: [],
@@ -104,8 +104,6 @@ class Chat extends React.Component<PropsType> {
     };
 
     ImagePicker.showImagePicker(options, response => {
-      console.log('Response = ', response);
-
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
@@ -114,7 +112,6 @@ class Chat extends React.Component<PropsType> {
         console.log('User tapped custom button: ', response.customButton);
       } else {
         const source = `data:image/jpeg;base64,${response.data}`;
-
         setChosenPhoto(source);
       }
     });
@@ -124,7 +121,7 @@ class Chat extends React.Component<PropsType> {
     const { dataChat, inputMessage, userPhoto } = this.props;
 
     return (
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={style.container}>
         <ImageBackground source={backgroundImg} style={style.main}>
           <View style={style.messages}>
             <FlatList
@@ -138,44 +135,13 @@ class Chat extends React.Component<PropsType> {
             />
           </View>
 
-          <View style={style.inputBlock}>
-            <TouchableWithoutFeedback onPress={this.setPhoto}>
-              <View style={style.clipContainer}>
-                <Icon
-                  name="paperclip"
-                  type="font-awesome"
-                  color="#b0c4d5"
-                  size={30}
-                />
-              </View>
-            </TouchableWithoutFeedback>
-
-            <TextInput
-              multiline
-              style={style.inputMessage}
-              placeholder="message"
-              placeholderTextColor="#b0c4d5"
-              onChangeText={this.handleSetMessage}
-              value={inputMessage}
-            />
-
-            <TouchableWithoutFeedback onPress={this.sendMessage}>
-              <View style={style.sendContainer}>
-                <Icon
-                  name="arrow-circle-up"
-                  type="font-awesome"
-                  color="#b0c4d5"
-                  size={30}
-                />
-              </View>
-            </TouchableWithoutFeedback>
-          </View>
-
-          <View style={style.previewImgContainer}>
-            {userPhoto.map(item => (
-              <Image source={{ uri: item }} style={style.previewImg} />
-            ))}
-          </View>
+          <InputData
+            setPhoto={this.setPhoto}
+            handleSetMessage={this.handleSetMessage}
+            inputMessage={inputMessage}
+            sendMessage={this.sendMessage}
+            userPhoto={userPhoto}
+          />
         </ImageBackground>
       </SafeAreaView>
     );

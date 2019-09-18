@@ -1,18 +1,20 @@
-export const commonMarginValue = 5;
-export const commonBorderValue = 1;
-export const commonBorderColor = '#e5e5e5';
+export default {
+  commonMarginValue: 5,
+  commonBorderValue: 1,
+  commonBorderColor: '#e5e5e5',
 
-export const commonMargin = {
-  marginLeft: commonMarginValue,
-  marginRight: commonMarginValue,
-  marginTop: commonMarginValue,
-  marginBottom: commonMarginValue,
-};
+  commonMargin: {
+    marginLeft: this.commonMarginValue,
+    marginRight: this.commonMarginValue,
+    marginTop: this.commonMarginValue,
+    marginBottom: this.commonMarginValue,
+  },
 
-export const commonBorder = {
-  borderBottomWidth: commonBorderValue,
-  borderTopWidth: commonBorderValue,
-  borderLeftWidth: commonBorderValue,
-  borderRightWidth: commonBorderValue,
-  borderColor: commonBorderColor,
+  commonBorder: {
+    borderBottomWidth: this.commonBorderValue,
+    borderTopWidth: this.commonBorderValue,
+    borderLeftWidth: this.commonBorderValue,
+    borderRightWidth: this.commonBorderValue,
+    borderColor: this.commonBorderColor,
+  },
 };

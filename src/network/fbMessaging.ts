@@ -2,11 +2,11 @@ import firebase from 'react-native-firebase';
 import { registerUserToken } from './../actions/auth';
 import { ItemChatDataType } from './../components/Chat/types';
 
-type CB = (token: string) => void;
+type CBtoken = (token: string) => void;
 type CBsendMessage = (value: Array<ItemChatDataType>) => void;
 
 export const getFbListeners = async (
-  cbToken: CB,
+  cbToken: CBtoken,
   userToken: string,
   sendMessage: CBsendMessage,
   userId: string,

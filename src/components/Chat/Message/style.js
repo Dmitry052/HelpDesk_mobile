@@ -1,46 +1,46 @@
-import { StyleSheet } from "react-native";
-import { commonMargin } from "./../../../style";
+import { StyleSheet } from 'react-native';
+import { commonMargin } from './../../../style';
 
 const messageTime = {
   paddingBottom: 3,
   paddingHorizontal: 5,
-  flexDirection: "row"
+  flexDirection: 'row',
 };
 
 export default StyleSheet.create({
   containerChatText: {
     ...commonMargin,
-    alignItems: "flex-start"
+    alignItems: 'flex-start',
   },
   rightText: {
-    alignItems: "flex-end"
+    alignItems: 'flex-end',
   },
   rightColor: {
-    backgroundColor: "#416e9c"
+    backgroundColor: '#416e9c',
   },
   locationChatText: {
     borderRadius: 9,
-    backgroundColor: "#20303f",
-    maxWidth: "80%"
+    backgroundColor: '#20303f',
+    maxWidth: '80%',
   },
   messageTimeLeft: {
     ...messageTime,
-    justifyContent: "flex-end"
+    justifyContent: 'flex-end',
   },
   messageTimeRight: {
     ...messageTime,
-    justifyContent: "flex-start"
+    justifyContent: 'flex-start',
   },
   messageTimeTextRight: {
-    color: "#fff",
-    fontSize: 10
+    color: '#fff',
+    fontSize: 10,
   },
   messageTimeTextLeft: {
     fontSize: 10,
-    color: "#fff"
+    color: '#fff',
   },
   chattext: {
-    color: "#fff",
-    ...commonMargin
-  }
+    color: '#fff',
+    ...commonMargin,
+  },
 });
